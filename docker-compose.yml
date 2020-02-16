@@ -8,7 +8,7 @@ services:
                 - DATABASE_URL=sqlite:///databasegateway.db
         ports:
             - 5000:5000        
-    redis:
+    redis_server:
         image: redis:latest
         ports:
             - 6379:6379
@@ -18,11 +18,11 @@ services:
                 - GRID_NETWORK_URL=http://gateway:5000
                 - ID=Bob
                 - ADDRESS=http://bob:3000/
-                - REDISCLOUD_URL=redis:///redis:6379
+                - REDISCLOUD_URL=redis://redis_server:6379
                 - PORT=3000
         depends_on:
                 - "gateway"
-                - "redis"
+                - "redis_server"
         ports:
             - 3000:3000
     alice:
@@ -31,11 +31,11 @@ services:
                 - GRID_NETWORK_URL=http://gateway:5000
                 - ID=Alice
                 - ADDRESS=http://alice:3001/
-                - REDISCLOUD_URL=redis:///redis:6379
+                - REDISCLOUD_URL=redis://redis_server:6379
                 - PORT=3001
         depends_on:
                 - "gateway"
-                - "redis"
+                - "redis_server"
         ports:
             - 3001:3001
     bill:
@@ -44,11 +44,11 @@ services:
                 - GRID_NETWORK_URL=http://gateway:5000
                 - ID=Bill
                 - ADDRESS=http://bill:3002/
-                - REDISCLOUD_URL=redis:///redis:6379
+                - REDISCLOUD_URL=redis://redis_server:6379
                 - PORT=3002
         depends_on:
                 - "gateway"
-                - "redis"
+                - "redis_server"
         ports:
             - 3002:3002
     james:
@@ -57,10 +57,10 @@ services:
                 - GRID_NETWORK_URL=http://gateway:5000
                 - ID=James
                 - ADDRESS=http://james:3003/
-                - REDISCLOUD_URL=redis:///redis:6379
+                - REDISCLOUD_URL=redis://redis_server:6379
                 - PORT=3003
         depends_on:
                 - "gateway"
-                - "redis"
+                - "redis_server"
         ports:
             - 3003:3003
